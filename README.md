@@ -1,6 +1,6 @@
 # apps-script-book-summary-generator
 
-A title and author gets sent from a Google form to a Google sheet, converted to a url and sent to the API, information is retrieved and inserted into a google doc.
+A title and author gets sent from a Google form to a Google sheet, converted to a url and sent to the API, information is retrieved and inserted into a copy of a google doc template.
 
 
 View the source folder in my google drive [here](https://drive.google.com/drive/folders/1IO5n4VMDZIKBkNhj8IDpmWXfZujLCRJn?usp=sharing).
