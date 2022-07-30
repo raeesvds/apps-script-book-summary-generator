@@ -34,16 +34,17 @@ function collectInfo() {
 
     // Find useful data from JSON 
 
-    var items = parse.items;
+    var item = parse.items[0].volumeInfo;
 
-      var isbn = items[0].volumeInfo.industryIdentifiers[0].identifier;
-      var averageRating = items[0].volumeInfo.averageRating;
-      var pageCount = items[0].volumeInfo.pageCount;
-      var publisher = items[0].volumeInfo.publisher;
-      var title = items[0].volumeInfo.title;
-      var publishedDate = items[0].volumeInfo.publishedDate;
-      var description = items[0].volumeInfo.description;
-      var authors = items[0].volumeInfo.authors;
+      var isbn = item.industryIdentifiers[0].identifier;
+      var averageRating = item.averageRating;
+      if(averageRating == "") throw "Unavailabe";
+      var pageCount = item.pageCount;
+      var publisher = item.publisher;
+      var title = item.title;
+      var publishedDate = item.publishedDate;
+      var description = item.description;
+      var authors = item.authors;
 
   
   // Copy and edit Template Document
@@ -55,24 +56,74 @@ function collectInfo() {
     // Prevent creation of duplicate files
 
     if(destination.getFilesByName(title).hasNext() == true){
-      Logger.log("Prevented file duplication")
+      Logger.log("Prevented duplicate of " + title)
 
     } else {
       var copy = template.makeCopy(title , destination );
     
+
       var summary = DocumentApp.openById(copy.getId());
       var body = summary.getBody();
+
+
+        if(title){
         body.replaceText("{{title}}",title);
+        } else{
+        body.replaceText("{{title}}","Unavailabe");
+        Logger.log("No Title");
+        }
+
+        if(authors){
         body.replaceText("{{authors}}",authors);
+        } else{
+        body.replaceText("{{authors}}","Unavailable");
+        Logger.log("No Authors");
+        }
+
+        if(isbn){
         body.replaceText("{{isbn}}",isbn);
-        body.replaceText("{{averageRating}}",averageRating);
+        } else{
+        body.replaceText("{{isbn}}","Unavailable");
+        Logger.log("No ISBN");
+        }
+
+        if(averageRating){
+        body.replaceText("{{averageRating}}",averageRating)
+        } else{
+        body.replaceText("{{averageRating}}","Unavailable");
+        Logger.log("No Rating");
+        }
+
+        if(pageCount){
         body.replaceText("{{pageCount}}",pageCount);
+        } else{
+          body.replaceText("{{pageCount}}","Unavailable");
+          Logger.log("No Page Count");
+        }
+
+        if(publisher){
         body.replaceText("{{publisher}}",publisher);
+        } else{
+        body.replaceText("{{publisher}}","Unavalaible"); 
+        Logger.log("No Publisher");         
+        }
+
+        if(publishedDate){
         body.replaceText("{{publishedDate}}",publishedDate);
+        } else{
+        body.replaceText("{{publishedDate}}","Unavailable");
+        Logger.log("No Published Date");
+        }
+
+        if(description){
         body.replaceText("{{description}}",description);
+        } else{
+        body.replaceText("{{description}}","Unavailable");
+        Logger.log("No Description");
+        }
+
     }
   }
-  
 }
 
 
