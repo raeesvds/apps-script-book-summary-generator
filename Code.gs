@@ -38,7 +38,6 @@ function collectInfo() {
 
       var isbn = item.industryIdentifiers[0].identifier;
       var averageRating = item.averageRating;
-      if(averageRating == "") throw "Unavailabe";
       var pageCount = item.pageCount;
       var publisher = item.publisher;
       var title = item.title;
