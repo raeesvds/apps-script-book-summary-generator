@@ -52,15 +52,18 @@ function collectInfo() {
   var destination = DriveApp.getFoldersByName("Summaries").next();
 
 
-    // Prevent creation of duplicate files
+    // Prevent creation of duplicate files 
 
     if(destination.getFilesByName(title).hasNext() == true){
       Logger.log("Prevented duplicate of " + title)
 
     } else {
-      var copy = template.makeCopy(title , destination );
-    
+      
 
+      // Create summary and handle exceptions
+      
+      
+      var copy = template.makeCopy(title , destination );
       var summary = DocumentApp.openById(copy.getId());
       var body = summary.getBody();
 
